@@ -196,12 +196,12 @@
 
           var nombre = $("#nombre").val();
           var imagen = $("#imagen").val();
-          var serie = $("#selectSerie").val();
+          var serie = parseInt($("#selectSerie").val());
           //Creamos el objeto Personaje
           var personaje = new Object();
           personaje.nombre = nombre;
           personaje.imagen = imagen;
-          personaje.serie = serie;
+          personaje.idSerie = serie;
           //Convertimos el objeto a JSON
           var personajeJSON = JSON.stringify(personaje);
           console.log(personajeJSON);
@@ -212,11 +212,7 @@
             data: personajeJSON,
             contentType: "application/json",
             success: function (data) {
-              $("#mensaje").text("Personaje creado correctamente");
-              //Limpiamos el formulario
-              $("#nombre").val("");
-              $("#imagen").val("");
-              $("#selectSerie").val("");
+              window.location.href = "/personajes.html?serieid=" + serie
             },
           });
         });
@@ -240,7 +236,7 @@
 
               // Select
               $("#selectSerie").append(
-                `<option id="optionSerie">${serie.nombre}</option>`
+                `<option id="optionSerie" value="${serie.idSerie}">${serie.nombre}</option>`
               )
             });
           },

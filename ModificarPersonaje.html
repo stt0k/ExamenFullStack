@@ -184,17 +184,18 @@
         let requestPersonajes = "api/Personajes"
 
         $("#modificarPersonaje").click(function() {
-            var personaje = $("#selectPersonaje").val()
-            var serie = $("#selectSerie").val()
+            var personaje = parseInt($("#selectPersonaje").val())
+            var serie = parseInt($("#selectSerie").val())
+            let requestPersonajesUpdate = "api/Personajes/" + personaje + "/" + serie
             console.log(serie)
             console.log(personaje)
             $.ajax({
-                url: url + request,
-                method: "GET",
+                url: url + requestPersonajesUpdate,
+                method: "PUT",
                 contentType: "application/json",
                 success: function() {
                     console.log("Updated")
-                    
+                    window.location.href = "/personajes.html?serieid=" + serie
                 }
             })
         })
@@ -206,7 +207,7 @@
             success: function (data) {
                 $.each(data, function(index, personaje) {
                     $("#selectPersonaje").append(
-                    `<option>${personaje.nombre}</option>`
+                    `<option value="${personaje.idPersonaje}">${personaje.nombre}</option>`
                     )
                 })
             }
@@ -231,7 +232,7 @@
 
               // Select
               $("#selectSerie").append(
-                `<option>${serie.nombre}</option>`
+                `<option value="${serie.idSerie}">${serie.nombre}</option>`
               )
             });
           },
